@@ -1,6 +1,6 @@
 using System.Numerics;
 
-namespace OctoWaddle.Domain.Core;
+namespace OctoWaddle.Domain.Entities;
 
 public class Contract
 {

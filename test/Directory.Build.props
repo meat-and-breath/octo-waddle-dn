@@ -1,0 +1,5 @@
+<Project>
+    <ItemGroup Condition="$(MSBuildProjectName.EndsWith('Tests'))">
+        <Compile Include="..\GlobalUsings.Tests.cs" />
+    </ItemGroup>
+</Project>

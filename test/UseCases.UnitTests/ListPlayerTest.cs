@@ -1,8 +1,7 @@
 ﻿using Moq;
 using FluentAssertions;
-using OctoWaddle.Domain;
 using OctoWaddle.Domain.Repositories;
-using OctoWaddle.Domain.Core;
+using OctoWaddle.Domain.Entities;
 using OctoWaddle.UseCases;
 
 namespace OctoWaddle.Tests;

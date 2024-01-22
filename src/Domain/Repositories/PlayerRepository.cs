@@ -1,3 +1,5 @@
+using OctoWaddle.Domain.Entities;
+
 namespace OctoWaddle.Domain.Repositories;
 
 public interface PlayerRepository

@@ -1,6 +1,6 @@
 namespace OctoWaddle.Tests;
 
-using OctoWaddle.Domain;
+using OctoWaddle.Domain.Entities;
 
 public class GuidTypesTest
 {

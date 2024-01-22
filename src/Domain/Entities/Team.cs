@@ -1,4 +1,4 @@
-namespace OctoWaddle.Domain;
+namespace OctoWaddle.Domain.Entities;
 
 public class Team
 {

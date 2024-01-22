@@ -1,5 +1,5 @@
 using OctoWaddle.Domain.Repositories;
-using OctoWaddle.Domain.Core;
+using OctoWaddle.Domain.Entities;
 
 namespace OctoWaddle.UseCases;
 

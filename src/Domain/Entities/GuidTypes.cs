@@ -1,4 +1,4 @@
-namespace OctoWaddle.Domain;
+namespace OctoWaddle.Domain.Entities;
 
 #pragma warning disable MA0048
 

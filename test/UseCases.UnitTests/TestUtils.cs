@@ -1,4 +1,4 @@
-﻿using OctoWaddle.Domain;
+﻿using OctoWaddle.Domain.Entities;
 
 namespace OctoWaddle.Tests;
 
