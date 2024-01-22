@@ -1,0 +1,6 @@
+@octo_waddle_dn_HostAddress = http://localhost:5064
+
+GET {{octo_waddle_dn_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
