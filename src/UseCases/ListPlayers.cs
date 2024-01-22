@@ -5,8 +5,8 @@ namespace OctoWaddle.UseCases;
 
 public class ListPlayers
 {
-    private PlayerRepository _playerRepository;
-    private ContractRepository _contractRepository;
+    private readonly PlayerRepository _playerRepository;
+    private readonly ContractRepository _contractRepository;
 
     public ListPlayers(PlayerRepository playerRepository, ContractRepository contractRepository)
     {

@@ -13,6 +13,11 @@ public static class TestUtils
                           RnadomeBirthdate());
     }
 
+    public static Contract MakeRandomContract(TeamGuid teamGuid, PlayerGuid playerGuid)
+    {
+        return new Contract(playerGuid, teamGuid, RnadomeStartdate(), RnadomeEnddate(), new Decimal(gen.Next(10000, 100000)));
+    }
+
     public static DateOnly RnadomeBirthdate()
     {
         DateTime start = new DateTime(1990, 1, 1);

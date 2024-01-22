@@ -28,13 +28,13 @@ public class ListPlayerTest
                             .Returns(Task.FromResult(player));
         }
 
-        IList<Contract> team1Contracts = players1.Select(player => {
+        List<Contract> team1Contracts = players1.Select(player => {
             return new Contract(player.PlayerGuid, team1.TeamGuid, 
                                 TestUtils.RnadomeStartdate(),
                                 TestUtils.RnadomeEnddate(),
                                 1000.00M);
         }).ToList();
-        IList<Contract> team2Contracts = players2.Select(player => {
+        List<Contract> team2Contracts = players2.Select(player => {
             return new Contract(player.PlayerGuid, team2.TeamGuid, 
                                 TestUtils.RnadomeStartdate(),
                                 TestUtils.RnadomeEnddate(),

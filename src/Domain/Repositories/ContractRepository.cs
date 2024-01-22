@@ -4,11 +4,11 @@ namespace OctoWaddle.Domain.Repositories;
 
 public interface ContractRepository
 {
-    public Task<Contract> GetCurrentContractForPlayer(PlayerGuid playerGuid);
+    public Task<Contract?> GetCurrentContractForPlayer(PlayerGuid playerGuid);
 
-    public Task<IList<Contract>> GetAllContractsForPlayer(PlayerGuid playerGuid);
+    public Task<List<Contract>> GetAllContractsForPlayer(PlayerGuid playerGuid);
 
-    public Task<IList<Contract>> GetAllContractsForTeam(TeamGuid teamGuid);
+    public Task<List<Contract>> GetAllContractsForTeam(TeamGuid teamGuid);
 
     public Task<Contract> UpdateContract(Contract updatedContract);
 

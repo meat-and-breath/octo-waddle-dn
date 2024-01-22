@@ -4,7 +4,7 @@ namespace OctoWaddle.Domain.Repositories;
 
 public interface PlayerRepository
 {
-    public Task<Player> GetPlayer (PlayerGuid playerGuid);
+    public Task<Player?> GetPlayer (PlayerGuid playerGuid);
 
     public Task<Player> UpdatePlayer (Player player);
 
