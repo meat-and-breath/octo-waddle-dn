@@ -12,7 +12,7 @@ public class SimplePlayerReporistory : PlayerRepository
         return Task.FromResult(_repo.ReadItem(playerGuid));
     }
 
-    public Task<Player> SaveNewPlayer(Player player)
+    public Task<Player> AddNewPlayer(Player player)
     {
         Player? existingPlayer = _repo.ReadItem(player.PlayerGuid);
         if (existingPlayer is not null)

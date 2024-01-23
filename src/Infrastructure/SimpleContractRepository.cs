@@ -44,12 +44,8 @@ public class SimpleContractRepository : ContractRepository
         throw new NotImplementedException();
     }
 
-    public void DumpData()
+    public Task<List<Contract>> GetAllContracts()
     {
-        Console.WriteLine($"Dumping SimpleContractRepository {_repo}");
-        foreach(var c in _repo)
-        {
-            Console.WriteLine(c.ToString());
-        }
+        return Task.FromResult(_repo);
     }
 }
