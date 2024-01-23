@@ -35,7 +35,11 @@ for (var i = 0; i < 12; i++)
 }
 
 // Debug
-((SimpleContractRepository) contractRepository).DumpData();
+Console.WriteLine("Dumping All Contracts");
+foreach (var contract in await contractRepository.GetAllContracts())
+{
+    Console.WriteLine(contract);
+}
 
 // Test
 ListPlayers listPlayers = host.Services.GetService<ListPlayers>()!;
