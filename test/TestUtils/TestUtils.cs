@@ -1,10 +1,28 @@
 ﻿using OctoWaddle.Domain.Entities;
+using RandomDataGenerator.FieldOptions;
+using RandomDataGenerator.Randomizers;
 
 namespace OctoWaddle.Tests;
 
 public static class TestUtils
 {
     private static Random gen = new();
+
+    public static Owner MakeRandomOwner()
+    {        
+        return new Owner(new OwnerGuid(), RandomName());
+    }
+
+    public static Team MakeRandomTeam(Owner owner)
+    {        
+        var teamName = RandomizerFactory.GetRandomizer(new FieldOptionsTextWords(){Max = 1}).Generate()!;
+        var city = RandomizerFactory.GetRandomizer(new FieldOptionsCity()).Generate()!;
+        return new Team(new TeamGuid(), 
+                        owner.OwnerGuid,
+                        teamName,
+                        city,
+                        RnadomeStartdate());
+    }
 
     public static Player MakeRandomPlayer()
     {
@@ -16,6 +34,13 @@ public static class TestUtils
     public static Contract MakeRandomContract(TeamGuid teamGuid, PlayerGuid playerGuid)
     {
         return new Contract(playerGuid, teamGuid, RnadomeStartdate(), RnadomeEnddate(), new Decimal(gen.Next(10000, 100000)));
+    }
+
+    #region utils for the utils
+    public static string RandomName()
+    {
+        var name = RandomizerFactory.GetRandomizer(new FieldOptionsFullName()).Generate()!;
+        return name;
     }
 
     public static DateOnly RnadomeBirthdate()
@@ -45,4 +70,5 @@ public static class TestUtils
         int range = (end - start).Days;
         return DateOnly.FromDateTime(start.AddDays(gen.Next(range)));
     }
+    #endregion
 }

@@ -8,5 +8,5 @@ public interface PlayerRepository
 
     public Task<Player> UpdatePlayer (Player player);
 
-    public Task<Player> SaveNewPlayer (Player player);
+    public Task<Player> AddNewPlayer (Player player);
 }

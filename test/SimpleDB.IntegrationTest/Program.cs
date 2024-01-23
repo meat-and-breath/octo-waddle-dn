@@ -29,7 +29,7 @@ for (var i = 0; i < 12; i++)
     var player = TestUtils.MakeRandomPlayer();
     var contract = TestUtils.MakeRandomContract(team1guid, player.PlayerGuid);
 
-    var addPlayer = playerRepository.SaveNewPlayer(player);
+    var addPlayer = playerRepository.AddNewPlayer(player);
     var addContract = contractRepository.AddNewContract(contract);
     Task.WaitAll(addPlayer, addContract);
 }

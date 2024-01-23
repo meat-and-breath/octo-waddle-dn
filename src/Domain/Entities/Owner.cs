@@ -4,11 +4,11 @@ public class Owner
 {
     public Owner(OwnerGuid guid, string name)
     {
-        this.guid = guid;
+        OwnerGuid = guid;
         Name = name;
     }
 
-    public required OwnerGuid guid {get; init; }
+    public OwnerGuid OwnerGuid {get; init; }
 
     public string Name { get; set; }
 }

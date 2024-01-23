@@ -13,4 +13,5 @@ public interface ContractRepository
     public Task<Contract> UpdateContract(Contract updatedContract);
 
     public Task<Contract> AddNewContract(Contract newContract);
+    public Task<List<Contract>> GetAllContracts();
 }
