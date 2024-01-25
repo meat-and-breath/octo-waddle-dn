@@ -7,11 +7,11 @@ public class GuidTypesTest
     [Fact]
     public void CanCreatePlayerGuidFromGuid()
     {
-        var guid = Guid.NewGuid();
+        var nuid = NanoidDotNet.Nanoid.Generate();
 
-        PlayerGuid pg = new PlayerGuid(guid);
+        PlayerGuid pg = new PlayerGuid(nuid);
 
-        Assert.Equal(guid, pg.Value);
+        Assert.Equal(nuid, pg.Value);
     }
 
     [Fact]
@@ -23,5 +23,4 @@ public class GuidTypesTest
         // shouldn't pramga disable this warning, but this is kind of a dummy unit test anyway
         Assert.NotNull(pg.Value);
     }
-
 }
