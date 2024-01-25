@@ -15,14 +15,17 @@ public class BusyBodyController : ControllerBase
     private readonly GetAllContracts _getAllContracts;
     private readonly GenerateRandomLeague _generateRandomLeague;
     private readonly GetAllTeams _getAllTeams;
+    private readonly GetOwner _getOwner;
 
     public BusyBodyController(GetAllContracts getAllContracts, 
                               GenerateRandomLeague generateRandomLeague,
-                              GetAllTeams getAllTeams)
+                              GetAllTeams getAllTeams,
+                              GetOwner getOwner)
     {
         _getAllContracts = getAllContracts;
         _generateRandomLeague = generateRandomLeague;
         _getAllTeams = getAllTeams;
+        _getOwner = getOwner;
     }
 
     [HttpGet]
@@ -44,7 +47,22 @@ public class BusyBodyController : ControllerBase
                                 .WithAlgorithm(new HMACSHA256Algorithm())
                                 .WithSecret(secret)
                                 .Decode<UserAuthClaim>(token);
-        Console.WriteLine(payload.UserId);
+        var owners = await _getOwner.GatAllOwners();
+        var owner = owners.Find(o => payload.UserId.Equals(o.OwnerGuid.Value.ToString()));
+
+        Console.WriteLine($"Looking up {payload.UserId}");
+        if (owner is not null)
+        {
+            Console.WriteLine($"Found Owner {owner.Name}");
+        }
+        else
+        {
+            Console.WriteLine("Not found in Owners");
+            foreach (var o in owners)
+            {
+                
+            }
+        }
 
         return payload.UserId;
     }

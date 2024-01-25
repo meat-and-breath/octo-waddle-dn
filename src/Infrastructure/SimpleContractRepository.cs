@@ -31,11 +31,22 @@ public class SimpleContractRepository : ContractRepository
     public Task<Contract?> GetCurrentContractForPlayer(PlayerGuid playerGuid)
     {
         var candidates = GetAllContractsForPlayer(playerGuid).Result;
+        // TODO this is not correct business logi
         if (candidates.Count > 1)
         {
             throw new Exception($"Found multiple active contracts for {playerGuid.ToString()}. This is why you should have implemented validation on upsert.");
         }
         return Task.FromResult(candidates.FirstOrDefault());
+    
+    }
+    public async Task<List<Contract>> GetCurrentContractsForTeam(TeamGuid teamGuid)
+    {
+        var effectiveDate = DateOnly.FromDateTime(DateTime.Now);
+
+        List<Contract> candidates = await GetAllContractsForTeam(teamGuid);
+        candidates = candidates.Where(contract => contract.IsActiveOn(effectiveDate)).ToList();
+
+        return candidates.ToList();
     }
 
     public Task<Contract> UpdateContract(Contract updatedContract)
@@ -48,4 +59,5 @@ public class SimpleContractRepository : ContractRepository
     {
         return Task.FromResult(_repo);
     }
+
 }
