@@ -2,7 +2,7 @@
 
 public readonly struct TeamDTO
 {
-    public Guid TeamGuid { get; init; }
+    public string TeamGuid { get; init; }
 
     public string Name { get; init; }
 
@@ -14,5 +14,4 @@ public readonly struct TeamDTO
     public OwnerDTO Owner { get ; init; }
 
     public List<PlayerDTO> Players {get; init; }
-
 }

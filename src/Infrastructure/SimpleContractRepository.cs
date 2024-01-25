@@ -24,7 +24,7 @@ public class SimpleContractRepository : ContractRepository
 
     public Task<List<Contract>> GetAllContractsForTeam(TeamGuid teamGuid)
     {
-        var contracts = _repo.FindAll(contract => teamGuid.Equals(contract.PlayerGuid));
+        var contracts = _repo.FindAll(contract => teamGuid.Equals(contract.TeamGuid));
         return Task.FromResult(contracts);
     }
 

@@ -2,7 +2,7 @@
 
 public readonly struct OwnerDTO
 {
-    public Guid OwnerGuid { get; init; }
+    public string OwnerGuid { get; init; }
 
-    // TODO remaining fields
+    public string Name { get; init; }
 }

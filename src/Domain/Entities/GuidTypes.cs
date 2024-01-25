@@ -1,19 +1,21 @@
+using NanoidDotNet;
+
 namespace OctoWaddle.Domain.Entities;
 
 #pragma warning disable MA0048
 
 public abstract class SpecificGuid
 {
-    public Guid Value { get; init; }
+    public string Value { get; init; }
 
     protected SpecificGuid()
     {
-        Value = Guid.NewGuid();
+        Value = Nanoid.Generate(size:8);
     }
 
-    protected SpecificGuid(Guid guid)
+    protected SpecificGuid(string id)
     {
-        Value = guid;
+        Value = id;
     }
 }
 
@@ -23,7 +25,7 @@ public class PlayerGuid : SpecificGuid
     {
     }
 
-    public PlayerGuid(Guid guid) : base(guid)
+    public PlayerGuid(string id) : base(id)
     {
     }
 }
@@ -34,7 +36,7 @@ public class OwnerGuid : SpecificGuid
     {
     }
 
-    public OwnerGuid(Guid guid) : base(guid)
+    public OwnerGuid(string id) : base(id)
     {
     }
 }
@@ -45,7 +47,7 @@ public class TeamGuid : SpecificGuid
     {
     }
 
-    public TeamGuid(Guid guid) : base(guid)
+    public TeamGuid(string id) : base(id)
     {
     }
 }

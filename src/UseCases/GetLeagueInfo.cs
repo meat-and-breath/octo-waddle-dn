@@ -11,12 +11,19 @@ public class GetLeagueInfo
     private readonly PlayerRepository _playerRepository;
     private readonly ContractRepository _contractRepository;
 
-    public GetLeagueInfo(OwnerRepository ownerRepositry, TeamRepository teamRepository, PlayerRepository playerRepository, ContractRepository contractRepository)
+    private readonly GetTeam _getTeam;
+
+    public GetLeagueInfo(OwnerRepository ownerRepositry, 
+                         TeamRepository teamRepository, 
+                         PlayerRepository playerRepository, 
+                         ContractRepository contractRepository,
+                         GetTeam getTeam)
     {
         _ownerRepositry = ownerRepositry;
         _teamRepository = teamRepository;
         _playerRepository = playerRepository;
         _contractRepository = contractRepository;
+        _getTeam = getTeam;
     }
 
     public async Task<LeagueDTO> Execute(Owner? loggedInOwner)
@@ -25,42 +32,15 @@ public class GetLeagueInfo
         var allTeams = await _teamRepository.GetAllTeams();
         
         // TODO I really want to interleave the asyn code here but am leaving it for later
+        //      or use continuation passing or something
         List<TeamDTO> teams = new ();
         foreach (var team in allTeams)
         {
-            var contracts = await _contractRepository.GetCurrentContractsForTeam(team.TeamGuid);
-
-            List<PlayerDTO> players = new ();
-            foreach (var contract in contracts)
+            var teamDto = await _getTeam.Execute(team.TeamGuid, loggedInOwner?.OwnerGuid);
+            if (teamDto is {} td)
             {
-                var player = await _playerRepository.GetPlayer(contract.PlayerGuid);
-                if (player is not null)
-                {
-                    Decimal? salary = null; // TODO salary info should only display for the owner's team 
-
-                    // TODO use an automapper
-                    var p = new PlayerDTO{
-                        PlayerGuid = player.PlayerGuid.Value,
-                        Name = player.Name,
-                        Birthdate = player.Birthdate,
-                        ContractStart = contract.StartDate,
-                        ContractEnd = contract.EndDate,
-                        SeasonSalary = salary
-                    };
-
-                    players.Add(p);                    
-                }
+                teams.Add(td);
             }
-
-            TeamDTO t = new TeamDTO{
-                TeamGuid = team.TeamGuid.Value,
-                Name = team.Name,
-                Location = team.Location,
-                CreationDate = team.CreationDate,
-                Owner = new OwnerDTO { OwnerGuid = team.OnwerGuid.Value },
-                Players = players
-            };
-            teams.Add(t);
         }
 
         return new LeagueDTO{

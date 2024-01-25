@@ -20,8 +20,10 @@ builder.Services.AddSingleton<OwnerRepository, SimpleOwnerRepository>();
 builder.Services.AddTransient<GetAllContracts>();
 builder.Services.AddTransient<GenerateRandomLeague>();
 builder.Services.AddTransient<GetAllTeams>();
+builder.Services.AddTransient<GetTeam>();
 builder.Services.AddTransient<GetOwner>();
 builder.Services.AddTransient<TradePlayer>();
+builder.Services.AddTransient<GetLeagueInfo>();
 
 var app = builder.Build();
 

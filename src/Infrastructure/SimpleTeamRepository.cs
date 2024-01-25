@@ -16,4 +16,10 @@ public class SimpleTeamRepository : TeamRepository
     {
         return Task.FromResult(_repo);
     }
+
+    public Task<Team?> GetTeam(TeamGuid teamGuid)
+    {
+        var team = _repo.Find(t => t.TeamGuid.Equals(teamGuid));
+        return Task.FromResult(team);
+    }
 }
