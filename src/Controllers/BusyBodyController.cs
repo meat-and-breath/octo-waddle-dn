@@ -43,7 +43,7 @@ public class BusyBodyController : ControllerBase
         var payload = JwtBuilder.Create()
                                 .WithAlgorithm(new HMACSHA256Algorithm())
                                 .WithSecret(secret)
-                                .Decode<DummyAuthController.UserModel>(token);
+                                .Decode<UserAuthClaim>(token);
         Console.WriteLine(payload.UserId);
 
         return payload.UserId;
