@@ -15,10 +15,13 @@ builder.Services.AddSwaggerGen();
 builder.Services.AddSingleton<ContractRepository, SimpleContractRepository>();
 builder.Services.AddSingleton<PlayerRepository, SimplePlayerReporistory>();
 builder.Services.AddSingleton<TeamRepository, SimpleTeamRepository>();
+builder.Services.AddSingleton<OwnerRepository, SimpleOwnerRepository>();
 
 builder.Services.AddTransient<GetAllContracts>();
 builder.Services.AddTransient<GenerateRandomLeague>();
 builder.Services.AddTransient<GetAllTeams>();
+builder.Services.AddTransient<GetOwner>();
+builder.Services.AddTransient<TradePlayer>();
 
 var app = builder.Build();
 

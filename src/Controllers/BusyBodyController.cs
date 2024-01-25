@@ -1,4 +1,7 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using JWT;
+using JWT.Algorithms;
+using JWT.Builder;
+using Microsoft.AspNetCore.Mvc;
 using OctoWaddle.Domain.Entities;
 using OctoWaddle.UseCases;
 
@@ -23,6 +26,30 @@ public class BusyBodyController : ControllerBase
     }
 
     [HttpGet]
+    [Route("owner/")]
+    public async Task<ActionResult<string>> GetOwner()
+    {
+        // TODO make a middleware (?) that gets the owner from the JWT for all callers
+        var authorizationHeader = HttpContext.Request.Headers["Authorization"];
+        
+        string token = string.Empty;
+        if (authorizationHeader.ToString().StartsWith("Bearer"))
+        {
+            token = authorizationHeader.ToString().Substring("Bearer ".Length).Trim();
+        }
+
+        string[] secret = ["verysecret"]; // because it is
+
+        var payload = JwtBuilder.Create()
+                                .WithAlgorithm(new HMACSHA256Algorithm())
+                                .WithSecret(secret)
+                                .Decode<DummyAuthController.UserModel>(token);
+        Console.WriteLine(payload.UserId);
+
+        return payload.UserId;
+    }
+
+    [HttpGet]
     [Route("contract/all")]
     public async Task<ActionResult<List<Contract>>> GetAllContracts()
     {
@@ -44,4 +71,5 @@ public class BusyBodyController : ControllerBase
     {
         await _generateRandomLeague.Execute();
     }
+
 }

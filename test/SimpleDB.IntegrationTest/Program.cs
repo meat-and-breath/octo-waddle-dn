@@ -2,6 +2,7 @@
 using Infrastructure;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using OctoWaddle.Domain;
 using OctoWaddle.Domain.Entities;
 using OctoWaddle.Domain.Repositories;
 using OctoWaddle.Tests;
@@ -12,6 +13,9 @@ using IHost host = Host.CreateDefaultBuilder(args)
     {
         services.AddSingleton<PlayerRepository, SimplePlayerReporistory>();
         services.AddSingleton<ContractRepository, SimpleContractRepository>();
+        services.AddSingleton<TeamRepository, SimpleTeamRepository>();
+        services.AddSingleton<OwnerRepository, SimpleOwnerRepository>();
+        
         services.AddTransient<ListPlayers>();
     })
     .Build();
