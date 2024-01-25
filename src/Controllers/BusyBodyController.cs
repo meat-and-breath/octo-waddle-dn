@@ -2,6 +2,7 @@
 using JWT.Algorithms;
 using JWT.Builder;
 using Microsoft.AspNetCore.Mvc;
+using OctoWaddle;
 using OctoWaddle.Domain.Entities;
 using OctoWaddle.UseCases;
 
@@ -15,19 +16,25 @@ public class BusyBodyController : ControllerBase
     private readonly GetAllContracts _getAllContracts;
     private readonly GenerateRandomLeague _generateRandomLeague;
     private readonly GetAllTeams _getAllTeams;
+    private readonly GetOwner _getOwner;
+    private readonly GetLeagueInfo _getLeagueInfo;
 
     public BusyBodyController(GetAllContracts getAllContracts, 
                               GenerateRandomLeague generateRandomLeague,
-                              GetAllTeams getAllTeams)
+                              GetAllTeams getAllTeams,
+                              GetOwner getOwner,
+                              GetLeagueInfo getLeagueInfo)
     {
         _getAllContracts = getAllContracts;
         _generateRandomLeague = generateRandomLeague;
         _getAllTeams = getAllTeams;
+        _getOwner = getOwner;
+        _getLeagueInfo = getLeagueInfo;
     }
 
     [HttpGet]
     [Route("owner/")]
-    public async Task<ActionResult<string>> GetOwner()
+    public async Task<ActionResult<OwnerDTO>> GetOwner()
     {
         // TODO make a middleware (?) that gets the owner from the JWT for all callers
         var authorizationHeader = HttpContext.Request.Headers["Authorization"];
@@ -44,9 +51,32 @@ public class BusyBodyController : ControllerBase
                                 .WithAlgorithm(new HMACSHA256Algorithm())
                                 .WithSecret(secret)
                                 .Decode<UserAuthClaim>(token);
-        Console.WriteLine(payload.UserId);
+        var owners = await _getOwner.GatAllOwners();
+        var owner = owners.Find(o => payload.UserId.Equals(o.OwnerGuid));
 
-        return payload.UserId;
+        Console.WriteLine($"Looking up {payload.UserId}");
+        if (false /*owner is not null*/)
+        {
+            Console.WriteLine($"Found Owner {owner.Name}");
+        }
+        else
+        {
+            Console.WriteLine("Not found in Owners");
+            foreach (var o in owners)
+            {
+
+            }
+        }
+
+        return owner;
+    }
+
+    // TODO last cheating method; after this, write the middleware and make controllers
+    [HttpGet]
+    [Route("league")]
+    public async Task<ActionResult<LeagueDTO>> GetLeague()
+    {
+        return await _getLeagueInfo.Execute(null);
     }
 
     [HttpGet]

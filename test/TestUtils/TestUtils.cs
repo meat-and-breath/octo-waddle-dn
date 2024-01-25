@@ -27,8 +27,8 @@ public static class TestUtils
     public static Player MakeRandomPlayer()
     {
         return new Player(new PlayerGuid(),
-                          new Guid().ToString(),
-                          RnadomeBirthdate());
+                          RandomName(),
+                          RnadomBirthdate());
     }
 
     public static Contract MakeRandomContract(TeamGuid teamGuid, PlayerGuid playerGuid)
@@ -43,7 +43,7 @@ public static class TestUtils
         return name;
     }
 
-    public static DateOnly RnadomeBirthdate()
+    public static DateOnly RnadomBirthdate()
     {
         DateTime start = new DateTime(1990, 1, 1);
         DateTime end = new DateTime(2005, 1, 1);

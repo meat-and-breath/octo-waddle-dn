@@ -8,6 +8,8 @@ public interface ContractRepository
 
     public Task<List<Contract>> GetAllContractsForPlayer(PlayerGuid playerGuid);
 
+    public Task<List<Contract>> GetCurrentContractsForTeam(TeamGuid teamGuid);
+
     public Task<List<Contract>> GetAllContractsForTeam(TeamGuid teamGuid);
 
     public Task<Contract> UpdateContract(Contract updatedContract);

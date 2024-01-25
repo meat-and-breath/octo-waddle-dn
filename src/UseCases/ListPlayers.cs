@@ -24,11 +24,11 @@ public class ListPlayers
         var activeContracts = allContracts.Where(c => c.IsActiveOn(effectiveDate));
         var allPlayerGuids = activeContracts.Select(c => c.PlayerGuid);
 
-        IEnumerable<Task<Player>> allPlayersAsync = allPlayerGuids.Select(pg => _playerRepository.GetPlayer(pg));
-        Player[] allPlayers = await Task.WhenAll(allPlayersAsync.ToArray());
+        IEnumerable<Task<Player?>> allPlayersAsync = allPlayerGuids.Select(pg => _playerRepository.GetPlayer(pg));
+        List<Player> allPlayers = (await Task.WhenAll(allPlayersAsync.ToArray())).OfType<Player>().ToList();
 
         var result = new ListPlayersResult{
-            players = allPlayers.ToList()
+            players = allPlayers.Where(p => p is not null).ToList()
         };
 
         return result;
