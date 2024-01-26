@@ -25,7 +25,9 @@ public class GetTeam
             return null;
         }
 
-        var requestorIsOwner = team.OnwerGuid.Equals(requestorGuid);
+        // TODO get owner
+
+        var requestorIsOwner = team.OnwerGuid.Value.Equals(requestorGuid?.Value);
         var contracts = await _contractRepository.GetCurrentContractsForTeam(team.TeamGuid);
 
         List<PlayerDto> players = new ();

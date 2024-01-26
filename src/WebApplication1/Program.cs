@@ -1,3 +1,4 @@
+using Controllers;
 using Infrastructure;
 using OctoWaddle.Domain;
 using OctoWaddle.Domain.Repositories;
@@ -16,6 +17,8 @@ builder.Services.AddSingleton<ContractRepository, SimpleContractRepository>();
 builder.Services.AddSingleton<PlayerRepository, SimplePlayerReporistory>();
 builder.Services.AddSingleton<TeamRepository, SimpleTeamRepository>();
 builder.Services.AddSingleton<OwnerRepository, SimpleOwnerRepository>();
+
+builder.Services.AddScoped<RequestUserContext>();
 
 builder.Services.AddTransient<GetAllContracts>();
 builder.Services.AddTransient<GenerateRandomLeague>();
@@ -36,6 +39,7 @@ if (app.Environment.IsDevelopment())
 
 // app.UseHttpsRedirection();
 
+app.UseExtractOwner();
 app.UseAuthorization();
 
 app.MapControllers();
