@@ -34,7 +34,7 @@ public class BusyBodyController : ControllerBase
 
     [HttpGet]
     [Route("owner/")]
-    public async Task<ActionResult<OwnerDTO>> GetOwner()
+    public async Task<ActionResult<OwnerDto>> GetOwner()
     {
         // TODO make a middleware (?) that gets the owner from the JWT for all callers
         var authorizationHeader = HttpContext.Request.Headers["Authorization"];
@@ -74,7 +74,7 @@ public class BusyBodyController : ControllerBase
     // TODO last cheating method; after this, write the middleware and make controllers
     [HttpGet]
     [Route("league")]
-    public async Task<ActionResult<LeagueDTO>> GetLeague()
+    public async Task<ActionResult<LeagueDto>> GetLeague()
     {
         return await _getLeagueInfo.Execute(null);
     }

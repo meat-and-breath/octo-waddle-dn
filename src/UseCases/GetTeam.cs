@@ -17,7 +17,7 @@ public class GetTeam
         _playerRepository = playerRepository;
     }
 
-    public async Task<TeamDTO?> Execute(TeamGuid teamGuid, OwnerGuid? requestorGuid)
+    public async Task<TeamDto?> Execute(TeamGuid teamGuid, OwnerGuid? requestorGuid)
     {
         var team = await _teamRepository.GetTeam(teamGuid);
         if (team is null)
@@ -28,7 +28,7 @@ public class GetTeam
         var requestorIsOwner = team.OnwerGuid.Equals(requestorGuid);
         var contracts = await _contractRepository.GetCurrentContractsForTeam(team.TeamGuid);
 
-        List<PlayerDTO> players = new ();
+        List<PlayerDto> players = new ();
         foreach (var contract in contracts)
         {
             var player = await _playerRepository.GetPlayer(contract.PlayerGuid);
@@ -37,7 +37,7 @@ public class GetTeam
                 Decimal? salary = requestorIsOwner ? contract.SeasonSalary : null;
 
                 // TODO use an automapper
-                var p = new PlayerDTO{
+                var p = new PlayerDto{
                     PlayerGuid = player.PlayerGuid.Value,
                     Name = player.Name,
                     Birthdate = player.Birthdate,
@@ -50,12 +50,12 @@ public class GetTeam
             }
         }
 
-        TeamDTO t = new TeamDTO{
+        TeamDto t = new TeamDto{
             TeamGuid = team.TeamGuid.Value,
             Name = team.Name,
             Location = team.Location,
             CreationDate = team.CreationDate,
-            Owner = new OwnerDTO { OwnerGuid = team.OnwerGuid.Value }, // TODO fix this
+            Owner = new OwnerDto { OwnerGuid = team.OnwerGuid.Value }, // TODO fix this
             Players = players
         };
 

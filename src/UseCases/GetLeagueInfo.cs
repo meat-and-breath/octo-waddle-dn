@@ -26,14 +26,14 @@ public class GetLeagueInfo
         _getTeam = getTeam;
     }
 
-    public async Task<LeagueDTO> Execute(Owner? loggedInOwner)
+    public async Task<LeagueDto> Execute(Owner? loggedInOwner)
     {
         // TODO don't ignore the logged-in owner
         var allTeams = await _teamRepository.GetAllTeams();
         
         // TODO I really want to interleave the asyn code here but am leaving it for later
         //      or use continuation passing or something
-        List<TeamDTO> teams = new ();
+        List<TeamDto> teams = new ();
         foreach (var team in allTeams)
         {
             var teamDto = await _getTeam.Execute(team.TeamGuid, loggedInOwner?.OwnerGuid);
@@ -43,7 +43,7 @@ public class GetLeagueInfo
             }
         }
 
-        return new LeagueDTO{
+        return new LeagueDto{
             Teams = teams
         };
     }

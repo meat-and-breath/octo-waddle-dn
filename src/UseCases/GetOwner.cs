@@ -12,11 +12,11 @@ public class GetOwner
         _ownerRepo = ownerRepo;
     }
 
-    public async Task<List<OwnerDTO>> GatAllOwners()
+    public async Task<List<OwnerDto>> GatAllOwners()
     {
         var owners = await _ownerRepo.GetAllOwners();
         return owners.ToList().Select(o => 
-            new OwnerDTO{
+            new OwnerDto{
                 OwnerGuid = o.OwnerGuid.Value,
                 Name = o.Name
             }).ToList();
