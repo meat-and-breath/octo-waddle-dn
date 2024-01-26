@@ -14,7 +14,7 @@ public class SimpleOwnerRepository : OwnerRepository
 
     public Task<Owner?> GetOwner(OwnerGuid ownerGuid)
     {
-        List<Owner> owners = _repo.FindAll(o => ownerGuid.Equals(o.OwnerGuid));
+        List<Owner> owners = _repo.FindAll(o => ownerGuid.Value.Equals(o.OwnerGuid.Value));
         // TODO make sure there's no more than one
         return Task.FromResult(owners.FirstOrDefault());
     }
